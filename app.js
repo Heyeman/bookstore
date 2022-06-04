@@ -1,7 +1,7 @@
 const { urlencoded } = require("express");
 const express = require("express");
 const dotenv = require("dotenv").config();
-
+const colors = require("colors");
 //intances and variables
 const app = express();
 const port = process.env.PORT || 5000;
