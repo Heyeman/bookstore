@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 //app configurations
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(require("./middlewares/errorHandler")); //custom error handler to send json errors
 
 //route config
 app.use("/auth", require("./routes/authRoutes"));
