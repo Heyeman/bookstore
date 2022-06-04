@@ -5,6 +5,8 @@ const colors = require("colors");
 //intances and variables
 const app = express();
 const port = process.env.PORT || 5000;
+const { dbConnect } = require("./config/dbConn");
+dbConnect();
 
 //app configurations
 app.use(express.json());

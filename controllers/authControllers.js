@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
+const { User } = require("../models/userModel");
 //login controller
 const loginController = asyncHandler(async (req, res) => {
   //required params - email and password
@@ -13,7 +14,33 @@ const loginController = asyncHandler(async (req, res) => {
 });
 //register controller
 const signupController = asyncHandler(async (req, res) => {
-  res.send("sign in ");
+  const {
+    email,
+    password,
+    username,
+    facebookLink,
+    telegramLink,
+    phoneNumber,
+    whatsapp,
+  } = req.body;
+  if (!(email && password && username)) {
+    res.status(400);
+    throw new Error("Both email and password should be filled");
+  }
+  const existingUser = await User.find({ email });
+  if (existingUser) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+  const newUser = await User.create({
+    email,
+    password,
+    username,
+    facebookLink,
+    telegramLink,
+    phoneNumber,
+    whatsapp,
+  });
 });
 //show profile
 const myProfile = asyncHandler(async (req, res) => {});
