@@ -1,6 +1,14 @@
 const express = require("express");
-
+//router instance
 const router = express.Router();
+
+//external methods
+const {
+  loginController,
+  signupController,
+  myProfile,
+  updateProfile,
+} = require("../controllers/authControllers");
 
 // Auth/login and auth/register - Post
 router.post("/login", loginController);
