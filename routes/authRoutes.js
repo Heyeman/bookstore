@@ -9,7 +9,7 @@ const {
   myProfile,
   updateProfile,
 } = require("../controllers/authControllers");
-
+const protector = require("../middlewares/protector");
 // Auth/login and auth/register - Post
 router.post("/login", loginController);
 router.post("/register", signupController);
