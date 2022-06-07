@@ -11,8 +11,23 @@ const loginController = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Both email and password should be filled");
   }
+  const userExists = await User.findOne({ email });
 
-  res.json({ email, password });
+  if (userExists && (await bcrypt.compare(password, userExists.password))) {
+    const accessToken = await getToken({ id: userExists._id });
+    const refreshToken = await getToken({ id: userExists._id }, true);
+
+    res.status(200).json({
+      id: userExists._id,
+      username: userExists.username,
+      email: userExists.email,
+      accessToken,
+      refreshToken,
+    });
+  } else {
+    res.status(200);
+    throw new Error("Invalid credentials");
+  }
 });
 //register controller
 const signupController = asyncHandler(async (req, res) => {
@@ -38,7 +53,7 @@ const signupController = asyncHandler(async (req, res) => {
   const hashedPass = await bcrypt.hash(password, hashSalt);
   const newUser = await User.create({
     email,
-    password,
+    password: hashedPass,
     username,
     facebookLink,
     telegramLink,
