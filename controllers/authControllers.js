@@ -15,14 +15,11 @@ const loginController = asyncHandler(async (req, res) => {
 
   if (userExists && (await bcrypt.compare(password, userExists.password))) {
     const accessToken = await getToken({ id: userExists._id });
-    const refreshToken = await getToken({ id: userExists._id }, true);
-
     res.status(200).json({
       id: userExists._id,
       username: userExists.username,
       email: userExists.email,
       accessToken,
-      refreshToken,
     });
   } else {
     res.status(200);
@@ -62,14 +59,12 @@ const signupController = asyncHandler(async (req, res) => {
   });
   if (newUser) {
     const accessToken = await getToken({ id: newUser._id });
-    const refreshToken = await getToken({ id: newUser._id }, true);
 
     res.status(200).json({
       id: newUser._id,
       username,
       email,
       accessToken,
-      refreshToken,
     });
   } else {
     res.status(400);
