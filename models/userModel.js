@@ -1,3 +1,7 @@
+const User = mongoose.model("users", userSchema);
+
+module.exports = { User };
+=======
 const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
@@ -29,5 +33,5 @@ const UserSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'Post'
     }]
 })
-
-module.exports = mongoose.model("User", UserSchema)
+const User = mongoose.model("users", userSchema);
+module.exports = { User };
