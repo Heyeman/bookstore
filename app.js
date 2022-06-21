@@ -9,24 +9,25 @@ const port = process.env.PORT || 5000;
 const { dbConnect } = require("./config/dbConn");
 dbConnect();
 
-const cors = require('cors')
-const morgan = require('morgan')
-const paginate = require('express-paginate')
-
+const cors = require("cors");
+const morgan = require("morgan");
+const paginate = require("express-paginate");
 
 //app configurations
-app.use(morgan())
-app.use(cors())
+app.use(morgan());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(require("./middlewares/errorHandler")); //custom error handler to send json errors
 
-app.use(paginate.middleware(10,100));
+app.use(paginate.middleware(10, 100));
 //route config
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/books", require("./routes/bookRoutes"));
-app.use("/review", require('./routes/reviewRoute'))
-
+app.use("/review", require("./routes/reviewRoute"));
+app.use("*", (req, res) => {
+  res.status(404).send("Not found");
+});
 //server
 
 app.listen(port, (err) => {
