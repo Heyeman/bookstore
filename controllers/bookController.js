@@ -1,5 +1,5 @@
 const Book = require('../models/bookModel')
-const User = require('../models/userModel')
+const { User } = require('../models/userModel')
 const mongoose = require('mongoose')
 const express = require('express')
 const paginate = require('express-paginate')
