@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require("express");
 //router instance
 const router = express.Router();
 
@@ -21,5 +21,8 @@ router
   .route("/profile")
   .get(protector, myProfile)
   .put(protector, updateProfile);
+router.route("*", (req, res) => {
+  res.status(404).send("Not found");
+});
 
 module.exports = router;

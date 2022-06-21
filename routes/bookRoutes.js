@@ -3,13 +3,16 @@
 // Books/:id - GET - one book details and reviews
 // Books/:id - DELETE/PUT - delete/update books
 // books/:id/review - POST
-const express = require('express');
-const bookController = require('../controllers/bookController.js')
+const express = require("express");
+const bookController = require("../controllers/bookController.js");
 const router = express.Router();
 
-router.get('/', bookController.getBooks)
-router.post('/', bookController.createBook)
-router.get('/:id', bookController.getBook)
-router.put('/:id', bookController.updateBook)
-router.delete('/:id', bookController.deleteBook)
+router.get("/", bookController.getBooks);
+router.post("/", bookController.createBook);
+router.get("/:id", bookController.getBook);
+router.put("/:id", bookController.updateBook);
+router.delete("/:id", bookController.deleteBook);
+router.route("*", (req, res) => {
+  res.status(404).send("Not found");
+});
 module.exports = router;
